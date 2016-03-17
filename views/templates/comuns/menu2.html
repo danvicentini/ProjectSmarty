@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+
+<div class="menu_left">
+  <ul>
+    {foreach from=$lista_menus item=menu}
+    <li><img src="/files/images/seta.png" /> <a href="{$menu['men_url']}">{$menu['men_nome']}</a></li>
+    {/foreach}
+  </ul>
+  <img width="150px" src="/files/images/cpfl_servicos.jpg" />
+  
+  <div class="legenda_icons">
+          	<span><img src="/files/images/P0.png" /> Ponto Zero <br/></span>
+  </div>
+          	
+  <div class="legenda_icons">        	
+            <span><img src="/files/images/base.png" /> Base Operacional ({$futurobasetotal})<br/>
+             <img src="/files/images/on.png" onclick="showBase();">
+          	 <img src="/files/images/off.png" onclick="clearBase();">      
+            </span>
+       </div>
+       
+  <div class="legenda_icons">     
+            <span><img src="/files/images/cco.png" /> CCO Provisório ({$ccototal})<br/>
+            <img src="/files/images/on.png" onclick="showCco();">
+          	 <img src="/files/images/off.png" onclick="clearCco();">
+            </span>
+  </div>
+          
+          <div class="legenda_icons">
+          	<span><img src="/files/images/pedagio.png" /> Pedágio ({$pedagiototal})<br/>
+          	<img src="/files/images/on.png" onclick="showPedagio();">
+          	 <img src="/files/images/off.png" onclick="clearPedagio();">
+           	</span>
+  
+     	</div>
+          	<div class="legenda_icons">
+            <span><img src="/files/images/dados.png" /> Torre Com. de Dados ({$dadostotal})<br/>
+            
+            <img src="/files/images/on.png" onclick="showDados();">
+          	 <img src="/files/images/off.png" onclick="clearDados();">
+            </span>
+            </div>
+            
+  
+</div>

@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    {$head}
+    <body>
+        <div class="page">
+            <div class="content">
+                {$titulo} {$menu}
+                <div class="content_right">
+                    <center>
+                        <div class="titulo_content">
+                            {$smarty.session.projeto.projeto}</div>
+                    </center>
+
+                    <h4>» Lista de Empresa</h4>
+
+                    <div style="text-align: right; margin-right: 25px;">
+                        <a href="/empresa/cadastro"> <img src="/files/images/new.png" /> Cadastrar novo</a>
+                    </div>
+
+                    <div id='solar_listar_filtro'>
+                        <form method="POST"  enctype="multipart/form-data">
+                            
+                            <br />
+                            <input type='text' name="cod_empresa" placeholder = 'ID' id="cod_empresa" value="{if $filtro['cod_empresa'] eq ''}{else}{$filtro['cod_empresa']}{/if}" />
+                            <input type='text' name="nom_nome_fantasia" placeholder = 'Nome Fantasia' id="nom_nome_fantasia" value="{if $filtro['nom_nome_fantasia'] eq ''}{else}{$filtro['nom_nome_fantasia']}{/if}" />
+                            <input type='text' name="nom_razao_social" placeholder = 'Razão Social' id="nom_razao_social" value="{if $filtro['nom_razao_social'] eq ''}{else}{$filtro['nom_razao_social']}{/if}" />
+                            <br />
+                            <div>
+                                <input type='submit' name="pesquisar" value='Pesquisar' />
+                                <input type='button' onclick='exportar()' value='Exportar para Excel' />
+                                {if $perfilUser != 4}
+                                <!--<input type='button' name="importar" value='Importar de Excel' onclick='$(this).hide();$("#importar_file").show();$("#importar_button").show();' />  -->
+                                <input type='file' name="importar" style='display:none' id='importar_file' />
+                                <input type='submit' name="importar" value='Importar de Excel' style='display:none' id='importar_button' />
+                                {/if}
+                            </div>
+                        </form>
+                    </div>
+
+                    <div style='text-align: center; color: green;'>{$mensagem}</div>
+					 
+                    <div class="content_empreendimento">
+                        <table class="content_table" style="width: 100%">
+                            <tr class="table_title">
+                                <td style="width: 90px">ID</td>
+                                <td>Nome Fantasia</td>
+                                <td>Raz&atilde;o Social</td>
+                                <td colspan="3"></td>
+                            </tr>
+                            
+                            <div id="content_empreendimento"></div>     
+                            {foreach from=$arrEmpresa item=empresa}
+                    
+                      
+                            <tr>
+                               <td>{$empresa['cod_empresa']}</td>
+                                <td>{$empresa['nom_nome_fantasia']}</td>
+                                <td>{$empresa['nom_razao_social']}</td>
+																{if $perfilUser != 4}<td style="width: 20px"><center><a title="Editar" href="/empresa/cadastro/emp_id/{$empresa['cod_empresa']}"><img title="Editar" src="/files/images/edit-6.png" /></a></center></td>{/if}
+                                <td style="width: 20px"><center><a title="Visualizar" href="/empresa/cadastro/emp_id/{$empresa['cod_empresa']}/vis/1"><img title="Visualizar" src="/files/images/map-magnify.png" /></a></center></td>
+                                {if $perfilUser != 4}<td style="width: 20px"><center><a title="Excluir" href="javascript:excluir({$empresa['cod_empresa']})"><img title="Excluir" src="/files/images/dialog-cancel-3.png" /></a></center></td>{/if}
+                            </tr>
+                        
+                            {/foreach}
+                        </table>
+                    </div>
+					
+					<div>{$paginacao}</div>			
+                    <br />
+                    <center>Total de Registros: <strong>{count($arrServico)}</strong></center>
+                </div>
+            </div>
+        </div>
+       
+        {$rodape}
+    </body>
+</html>

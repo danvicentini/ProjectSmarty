@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    {$head}
+    
+    <body>
+        <div class="page">
+            <div class="content">
+                {$titulo}
+                {$menu}
+                <div class="content_right">
+                    <center>
+                        <div class="titulo_content">
+                            {$smarty.session.projeto.projeto}
+                        </div>
+                    </center>
+                    <h4>» Cadastro de Pessoas</h4>
+                    <div class="content_consumidor">
+                        <form id="form_consumidor" class="form_consumidor" method="post" enctype="multipart/form-data" action="/pessoas/gravar_dados">
+                            <input type="hidden" id="cod_funcionario" name="cod_funcionario" value="{$arrPessoa['cod_funcionario']|default:''}" />
+                            <fieldset>
+                                <legend><h3>Dados da Pessoa </h3></legend>
+                                <table width='100%'>
+                                    <tr>
+                                        <td align='right' width='180'>Nome</td>
+                                        <td>
+                                            <input type='text' name='nom_funcionario' id='nom_funcionario' value="{$arrPessoa['nom_funcionario']|default:''}" />
+                                        </td>
+                                        <td align='right' width='180'>CPF</td>
+                                        <td>
+                                            <input type='text' name='cpf' id='cpf' value="{$arrPessoa['cpf']|default:''}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align='right'>Endere&ccedil;o</td>
+                                        <td>
+                                            <input type='text' name='endereco' id='endereco' value="{$arrPessoa['endereco']|default:''}" />
+                                        </td>
+                                        <td align='right'>Telefone</td>
+                                        <td>
+                                            <input type='text' name='telefone' id='telefone' value="{$arrPessoa['telefone']|default:''}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align='right'>Celular</td>
+                                        <td>
+                                            <input type='text' name='celular' id='celular' value="{$arrPessoa['celular']|default:''}"  />
+                                        </td>
+                                        <td align='right'>E-mail</td>
+                                        <td>
+                                            <input type='text' name='email' id='email' value="{$arrPessoa['email']|default:''}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align='right'>Empresa</td>
+                                        <td>
+                                            <select  name='cod_empresa' id='cod_empresa' >
+																							{html_options options=$listaEmpresas selected=$arrPessoa['cod_empresa']}
+																						</select>
+                                        </td>
+                                        <td align='right'></td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </fieldset>
+                            <br />
+                            
+                            <br />
+                            <div>
+                                <center><input type="button" value="Gravar" onclick="gravar()" /></center>
+                            </div>
+                        </form>
+                    </div>
+                    <br />
+                    
+                </div>
+            </div>
+        </div>
+        {$rodape}
+    </body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  {$head}
+
+  <body>
+    <div class="page">
+      <div class="content">
+        {$titulo}
+        <center>
+          <form id="form_login">
+            <div class="login_content">
+              <h3>Acesso Restrito</h3>
+              <div>
+                <label>Login:</label>
+                <input type="text" name="login" id="login" style="width: 250px;" />
+              </div>
+              <div>
+                <label>Senha:</label>
+                <input type="password" id="senha" name="senha" style="width: 250px;" />
+              </div>
+              <div class="button">
+                <input type="button" value="Acessar" onclick="acessar()" />
+              </div>
+            </div>
+          </form>
+        </center>
+      </div> 
+    </div>
+    {$rodape} 
+
+  </body>
+</html>

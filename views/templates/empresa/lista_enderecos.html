@@ -1,0 +1,32 @@
+<div style="width: 690px; text-align: right"><i>Total de registros: {$total_linhas}</i></div>
+<table style="width: 690px;" cellpadding="1" cellspacing="1" class="content_table">
+  <tr class="table_title">
+    <td>Local</td>
+    <td>Tipo</td>
+    <td width="180px">Grupo focal</td>
+    <td>Padrão</td>
+    <td align="center" width="70px;">Modulos</td>
+    <td align="center" width="70px;">Potência</td>
+    {if $smarty.session.user.per_id==1}<td colspan="4"></td>{else}<td colspan="3">{/if}
+
+  </tr>
+  {foreach from=$lista_semaforos item=semaforos}
+  <tr class="{cycle values="linhapar,linhaimpar"}">
+     <td>{$semaforos['end_local']}</td>
+     <td>{$semaforos['gft_nome']}</td>
+     <td>{$semaforos['gf_nome']}</td>
+     <td>{$semaforos['gfp_nome']}</td>
+     <td align="center">{$semaforos['num_modulos']}</td>
+     <td align="center">{$semaforos['gf_potencia']} (W)</td>
+     <td align="center" width="22px">
+       {if $semaforos['instalado']}
+       <img src="/files/images/dialog-accept.png" title="Semaforo instalado dia {$semaforos['instalado']|date_format:'%d/%m/%Y'}" />
+       {/if}
+     </td>
+     <td align="center" width="22px;"><a href="javascript:editar({$semaforos['sem_id']})"><img alt="editar" title="Editar semáforo" src="/files/images/edit-6.png"/></a></td>
+     <td align="center" width="22px;"><a target="_blank" href="/pee_semaforos/obtem_coordenadas/sem_id/{$semaforos['sem_id']}"><img alt="mapa" title="Visualizar no mapa" src="/files/images/map-magnify.png"/></a></td>
+     {if $smarty.session.user.per_id==1}<td align="center" width="22px;"><a href="javascript:excluir({$semaforos['sem_id']})"><img alt="excluir" title="Excluir semáforo"  src="/files/images/dialog-cancel-3.png"/></td>{/if}
+   </tr>
+   {/foreach}
+  </table>
+<div>{$paginacao}</div>

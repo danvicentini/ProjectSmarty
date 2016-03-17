@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  {$head}
+
+  <body>
+    <div class="page">
+      <div class="content">
+        {$titulo}
+        {$menu}
+        <div class="content_right">
+          <div class="titulo_content">
+            Projeto de Eficiência Energética - PEE ANEEL <br/> 
+            Implantação de módulos semafóricos com tecnologia LED
+          </div>
+          
+          <div>
+              <img width="700px" src="/files/images/logos.jpg" />
+            </div>
+            
+          <h4>» Gerenciamento de Produtos</h4>
+          <div style="text-align: right; margin-right: 25px;"><a href="/produtos/cadastro"> <img src="/files/images/new.png" /> Cadastrar novo</a></div>
+          <form id="form_busca_enderecos" name="form_busca_enderecos">
+          <div>
+            <label>Buscar por local:</label>
+            <input name="endereco" id="endereco" style="width: 300px;" />
+            <input type="button" value="Buscar" onclick="buscar()" />
+          </div>
+          </form>
+          <center>
+            <br/>
+            <div id="lista_enderecos"></div>
+          </center>
+        </div>
+      </div> 
+    </div>
+    {$rodape} 
+
+  </body>
+</html>

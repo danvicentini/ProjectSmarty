@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  {$head}
+  <body>
+    <div class="page">
+      <div class="content">
+        {$titulo}
+        <div class="menu_left">
+          <ul>
+            {foreach from=$menu_ini item=menu}
+             {if $menu['tipo'] != 1 }<li><img src="/files/images/seta.png" /><a href="{$menu['men_url']}"> {$menu['men_nome']}</a></li>{/if}
+            {/foreach}
+          </ul>
+        </div>
+        <div class="content_right">
+          <center>
+            <div class="titulo_content">
+              Projeto de Eficiência Energética - PEE ANEEL <br/>
+              Implantação de módulos semafóricos com tecnologia LED
+            </div>
+          </center>
+          <h4>» Gerenciamento de usuários</h4>
+          <div style="text-align: right; margin-right: 25px;"><a href="/usuario/cadastro"> <img src="/files/images/new.png" /> Cadastrar novo</a></div>
+          <center>
+            <br/>
+            <table style="width: 690px;" cellpadding="1" cellspacing="1" class="content_table">
+              <tr class="table_title">
+                <td>Nome</td>
+                <td>Nick</td>
+                <td>E-mail</td>
+                <td>Perfil</td>
+                <td align="center" width="70px;">Editar</td>
+                <td align="center" width="70px;">Bloquear</td>
+                <td align="center" width="70px;">Excluir</td>
+
+              </tr>
+              {foreach from=$lista_usuarios item=usuarios}
+              <tr class="{cycle values="linhapar,linhaimpar"}">
+                  <td>{$usuarios['usu_nome']}</td>
+                 <td>{$usuarios['usu_nick']}</td>
+                 <td>{$usuarios['usu_email']}</td>
+                 <td>{$usuarios['per_nome']}</td>
+                 <td align="center"><a href="/usuario/cadastro/usu_id/{$usuarios['usu_id']}"><img src="/files/images/edit-6.png" /></a></td>
+                 <td align="center">
+                   {if $usuarios['usu_status']==1}
+                   <a href="javascript:status_usuario({$usuarios['usu_id']}, 2)">
+                     <img src="/files/images/im-user.png" title="Usuário ativo" />
+                   </a>
+                   {else}
+                   <a href="javascript:status_usuario({$usuarios['usu_id']}, 1)">
+                     <img src="/files/images/im-user-away.png" title="Usuário bloqueado" />
+                   </a>
+                   {/if}
+                 </td>
+                 <td align="center"><a href="javascript:status_usuario({$usuarios['usu_id']}, 0)"><img src="/files/images/dialog-cancel-3.png" /></a></td>
+               </tr>
+               {foreachelse}
+               <tr>
+                 <td colspan="7" align="center"><br/>Nenhum usuário cadastrado no sistema<br/><br/></td>
+               </tr>
+               {/foreach}
+              </table>
+            </center>
+
+          </div>
+        </div>
+      </div>
+      {$rodape}
+
+    </body>
+  </html>

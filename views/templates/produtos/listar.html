@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    {$head}
+    <body>
+        <div class="page">
+            <div class="content">
+                {$titulo} {$menu}
+                <div class="content_right">
+                    <center>
+                        <div class="titulo_content">
+                            {$smarty.session.projeto.projeto}</div>
+                    </center>
+
+                    <h4>» Lista de Produtos</h4>
+
+                    <div style="text-align: right; margin-right: 25px;">
+                        <a href="/produtos/cadastro"> <img src="/files/images/new.png" /> Cadastrar novo</a>
+                    </div>
+
+                    <div id='solar_listar_filtro'>
+                        <form method="POST" enctype="multipart/form-data">
+                            
+                            <br />
+                            <input type='text' name="UC" id="UC" value="{if $filtro['UC'] eq ''}ID{else}{$filtro['UC']}{/if}" />
+                            <input type='text' name="CPF" id="CPF" value="{if $filtro['CPF'] eq ''}Desc{else}{$filtro['CPF']}{/if}" />
+                            <input type='text' name="NIS" id="NIS" value="{if $filtro['NIS'] eq ''}Código SAP{else}{$filtro['NIS']}{/if}" />
+                            <br />
+                            <div>
+                                <input type='submit' name="pesquisar" value='Pesquisar' />
+                                <input type='submit' name="exportar" value='Exportar para Excel' />
+                                {if $perfilUser != 4}
+                                <!--<input type='button' name="importar" value='Importar de Excel' onclick='$(this).hide();$("#importar_file").show();$("#importar_button").show();' />  -->
+                                <input type='file' name="importar" style='display:none' id='importar_file' />
+                                <input type='submit' name="importar" value='Importar de Excel' style='display:none' id='importar_button' />
+                                {/if}
+                            </div>
+                        </form>
+                    </div>
+
+                    <div style='text-align: center; color: green;'>{$mensagem}</div>
+					 
+                    <div class="content_empreendimento">
+                        <table class="content_table" style="width: 100%">
+                            <tr class="table_title">
+                                <td style="width: 90px">ID</td>
+                                
+                                <td>Descrição</td>
+                                <td>Cód SAP</td>
+                                <td>Cód Fabricante</td>
+                                <td>Modelo</td>
+                                <td colspan="3"></td>
+                            </tr>
+                            
+                            <div id="content_empreendimento"></div>     
+                            {foreach from=$arrProduto item=produto}
+                    
+                      
+                            <tr>
+                               <td>{$produto['idproduto']}</td>
+                                <td>{$produto['descricao']}</td>
+                                <td>{$produto['cod_sap']}</td>
+                                <td>{$produto['cod_fabricante']}</td>
+                                <td>{$produto['modelo']}</td>
+                                {if $perfilUser != 4}<td style="width: 20px"><center><a title="Editar" href="/produtos/cadastro/prd_id/{$produto['idproduto']}"><img title="Editar" src="/files/images/edit-6.png" /></a></center></td>{/if}
+                                <td style="width: 20px"><center><a title="Visualizar" href="/produto/cadastro/prd_id/{$produto['idproduto']}/vis/1"><img title="Visualizar" src="/files/images/map-magnify.png" /></a></center></td>
+                                {if $perfilUser != 4}<td style="width: 20px"><center><a title="Excluir" href="javascript:excluir({$produto['idproduto']})"><img title="Excluir" src="/files/images/dialog-cancel-3.png" /></a></center></td>{/if}
+                            </tr>
+                        
+                            {/foreach}
+                        </table>
+                    </div>
+					
+					<div>{$paginacao}</div>			
+                    <br />
+                    <center>Total de Registros: <strong>{count($arrProduto)}</strong></center>
+                </div>
+            </div>
+        </div>
+       
+        {$rodape}
+    </body>
+</html>

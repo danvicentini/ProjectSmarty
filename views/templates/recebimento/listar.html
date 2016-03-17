@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    {$head}
+    <body>
+        <div class="page">
+            <div class="content">
+                {$titulo} {$menu}
+                <div class="content_right">
+                    <center>
+                        <div class="titulo_content">
+                            {$smarty.session.projeto.projeto}</div>
+                    </center>
+
+                    <h4>» Lista de clientes</h4>
+
+                    <div style="text-align: right; margin-right: 25px;">
+                        <a href="/led_clientes/cadastro"> <img src="/files/images/new.png" /> Cadastrar Novo</a>
+                    </div>
+
+                    <div id='solar_listar_filtro'>
+                        <form method="post" enctype="multipart/form-data">
+                            <select name="municipio">
+                                <option>Cliente</option>
+                                {foreach from=$municipios item=municipio}
+                                <option value="{$municipio['nome']}" {if $municipio['nome'] eq $filtro['municipio']}selected=selected{/if}>{$municipio['nome']}</option>
+                                {/foreach}
+                            </select>
+                            <select name="bairro">
+                                <option>Produto</option>
+                                {foreach from=$bairros item=bairro}
+                                <option value="{$bairro['nome']}" {if $bairro['nome'] eq $filtro['bairro']}selected=selected{/if}>{$bairro['nome']}</option>
+                                {/foreach}
+                            </select>
+                            <select name="status_cliente" id="status_cliente">
+                                {html_options options=$lista_status_cliente selected=$select_status_cliente}
+                            </select>
+                            <br />
+                            <input type='text' name="UC" id="UC" value="{if $filtro['UC'] eq ''}Código{else}{$filtro['UC']}{/if}" />
+                            <input type='text' name="CPF" class='cpf' id="CPF" value="{if $filtro['CPF'] eq ''}Código{else}{$filtro['CPF']}{/if}" />
+                            <input type='text' name="NIS" id="NIS" value="{if $filtro['NIS'] eq ''}Código{else}{$filtro['NIS']}{/if}" />
+                            <br />
+                            <div>
+                                <input type='submit' name="pesquisar" value='Pesquisar' />
+                                <input type='submit' name="exportar" value='Exportar para Excel' />
+                                {if $perfilUser != 4}
+                                <input type='button' name="importar" value='Importar de Excel' onclick='$(this).hide();$("#importar_file").show();$("#importar_button").show();' />
+                                <input type='file' name="importar" style='display:none' id='importar_file' />
+                                <input type='submit' name="importar" value='Importar de Excel' style='display:none' id='importar_button' />
+                                {/if}
+                            </div>
+                        </form>
+                    </div>
+
+                    <div style='text-align: center; color: green;'>{$mensagem}</div>
+                        <table class="content_table" id="dataTable">
+                            <thead>
+                                <tr class="table_title">
+                                    <th style="width: 90px">Fabricante</th>
+                                    <th>Cliente</th>
+                                    <th>Descricao</th>
+                                    <th>Modelo</th>
+                                    <th>Código SAP</th>
+                                    
+                                    <th width="60px"></th>
+                                </tr>
+                            </thead>
+                            
+                            
+                            
+                            
+                        </table>
+                    <br />
+                     </div>
+            </div>
+        </div>
+        {$rodape}
+    </body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#dataTable').dataTable( {
+            "bProcessing": true,
+            "bServerSide": true,
+            "sAjaxSource": "paginar"
+        });
+    });
+</script>

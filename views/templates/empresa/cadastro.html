@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    {$head}
+    
+    <body>
+        <div class="page">
+            <div class="content">
+                {$titulo}
+                {$menu}
+                <div class="content_right">
+                    <center>
+                        <div class="titulo_content">
+                            {$smarty.session.projeto.projeto}
+                        </div>
+                    </center>
+                    <h4>» Cadastro de Empresas</h4>
+                    <div class="content_consumidor">
+                        <form id="form_consumidor" class="form_consumidor" method="post" enctype="multipart/form-data" action="/empresa/gravar_dados">
+                            <input type="hidden" id="emp_id" name="emp_id" value="{$emp_id|default:''}" />
+                            <fieldset>
+                                <legend><h3>Dados da Empresa </h3></legend>
+                                <table width='100%'>
+                                    <tr>
+                                        <td align='right' width='180'>Nome Fantasia </td>
+                                        <td>
+                                            <input type='text' name='nom_nome_fantasia' id='nom_nome_fantasia' value="{$arrEmpresa['nom_nome_fantasia']|default:''}" />
+                                        </td>
+																				<td align='right' width='180'>Razão Social </td>
+                                        <td>
+                                            <input type='text' name='nom_razao_social' id='nom_razao_social' value="{$arrEmpresa['nom_razao_social']|default:''}" />
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr >
+                                    
+                                        <td align='right'>Descrição</td>
+                                        <td colspan='3'>
+                                            <textarea name='descricao' id = 'descricao' rows=5 cols=64>{$arrEmpresa['descricao']|default:''}</textarea> 
+                                        </td>
+                                        
+                                    </tr>
+                                    
+                                </table>
+																<script>
+																	
+																	$( document ).ready(function() {
+																		$('#cliente_prop').change(function(){
+																			$('#fabricante').val($('#cliente_prop :selected').text());
+																		});
+																	});
+																	
+															</script>
+                            </fieldset>
+                            <br />
+                            
+                            <br />
+                            <div>
+                                <center><input type="button" value="Gravar" onclick="gravar()" /></center>
+                            </div>
+                        </form>
+                    </div>
+                    <br />
+                    
+                </div>
+            </div>
+        </div>
+        {$rodape}
+    </body>
+</html>

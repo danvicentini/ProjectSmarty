@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    {$head}
+    
+    <body>
+        <div class="page">
+            <div class="content">
+                {$titulo}
+                {$menu}
+                <div class="content_right">
+                    <center>
+                        <div class="titulo_content">
+                            {$smarty.session.projeto.projeto}
+                        </div>
+                    </center>
+                    <h4>» Cadastro de Clientes</h4>
+                    <div class="content_consumidor">
+                        <form id="form_consumidor" class="form_consumidor" method="post" enctype="multipart/form-data" action="/clientes/gravar_dados">
+                            <input type="hidden" id="idcliente" name="idcliente" value="{$arrCliente['idcliente']|default:''}" />
+                            <fieldset>
+                                <legend><h3>Dados do Cliente </h3></legend>
+                                <table width='100%'>
+                                    <tr>
+                                        <td align='right' width='180'>CNPJ</td>
+                                        <td>
+                                            <input type='text' name='cnpj' id='cnpj' value="{$arrCliente['cnpj']|default:''}" />
+                                        </td>
+                                        <td align='right' width='180'>Insc Estadual</td>
+                                        <td>
+                                            <input type='text' name='insc_estadual' id='insc_estadual' value="{$arrCliente['insc_estadual']|default:''}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align='right'>Insc Municipal</td>
+                                        <td>
+                                            <input type='text' name='insc_municipal' id='insc_municipal' value="{$arrCliente['insc_municipal']|default:''}" />
+                                        </td>
+                                        <td align='right'>Razão Social</td>
+                                        <td>
+                                            <input type='text' name='razao_social' id='razao_social' value="{$arrCliente['razao_social']|default:''}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align='right'>Nome Fantasia</td>
+                                        <td>
+                                            <input type='text' name='nome_fantasia' id='nome_fantasia' value="{$arrCliente['nome_fantasia']|default:''}"  />
+                                        </td>
+                                        <td align='right'>Modelo</td>
+                                        <td>
+                                            <input type='text' name='modelo' id='modelo' value="{$arrCliente['modelo']|default:''}" />
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td align='right'>Telefone</td>
+                                        <td>
+                                            <input type='text' name='telefone' id='telefone' value="{$arrCliente['telefone']|default:''}"  />
+                                        </td>
+                                        <td align='right'>Site</td>
+                                        <td>
+                                            <input type='text' name='site' id='site' value="{$arrCliente['site']|default:''}" />
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td align='right'>Endereço</td>
+                                        <td>
+                                            <input type='text' name='endereco' id='endereco' size="35" value="{$arrCliente['endereco']|default:''}"  />
+                                        </td>
+                                        <td align='right'>CEP</td>
+                                        <td>
+                                            <input type='text' name='cep' id='cep' size="10" value="{$arrCliente['cep']|default:''}" />
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td align='right'>Cidade</td>
+                                        <td>
+                                            <input type='text' name='cidade' id='cidade' size="20" value="{$arrCliente['cidade']|default:''}"  />
+                                        </td>
+                                        <td align='right'>Estado</td>
+                                        <td>
+                                            <input type='text' name='estado' id='estado' size="2" value="{$arrCliente['estado']|default:''}" />
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr >
+                                    
+                                        <td align='right'>Status</td>
+                                        <td colspan='3'>
+                                            <input type='text' name='status' id='status' size='5' value="{$arrCliente['status']|default:''}"  />
+                                        </td>
+                                        
+                                    </tr>
+                                    
+                                    <tr >
+                                    
+                                        <td align='right'>Observação</td>
+                                        <td colspan='3'>
+                                            <input type='text' name='obs' id='obs' size='77' value="{$arrCliente['obs']|default:''}"  />
+                                        </td>
+                                        
+                                    </tr>
+                                    
+                                </table>
+                            </fieldset>
+                            <br />
+                            
+                            <br />
+                            <div>
+                                <center><input type="button" value="Gravar" onclick="gravar()" /></center>
+                            </div>
+                        </form>
+                    </div>
+                    <br />
+                    
+                </div>
+            </div>
+        </div>
+        {$rodape}
+    </body>
+</html>

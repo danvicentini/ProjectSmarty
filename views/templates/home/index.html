@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  {$head}
+
+  <body>
+    <div class="page">
+      <div class="content">
+        {$titulo}
+        <div class="menu_left">
+          <ul>
+            {foreach from=$menu_ini item=menu}
+             {if $menu['tipo'] != 1 }<li><img src="/files/images/seta.png" /><a href="{$menu['men_url']}"> {$menu['men_nome']}</a></li>{/if}
+            {/foreach}
+          </ul>
+        </div>
+        <div class="content_right">
+          <center>
+          <!--
+            <div>
+              <img width="700px" src="/files/images/logos.jpg" />
+            </div>
+            -->
+
+            <div class="home_content">
+              <h3>Escolha o projeto</h3>
+              <div>
+                <label>Projeto:</label>
+                <select name="projeto" id="projeto" onchange="seleciona_projeto()">
+                  <option value="" selected="true">Selecione...</option>
+                  {html_options options=$arrProjetos}
+                </select>
+              </div>
+
+            </div>
+            </form>
+          </center>
+        </div>
+      </div>
+    </div>
+    {$rodape}
+
+  </body>
+</html>

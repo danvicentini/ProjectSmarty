@@ -1,0 +1,13 @@
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+  <title>{$title}</title>
+
+  {section name=i loop=$css}
+  <link href="{$css[i]}" rel="stylesheet" type="text/css" />
+  {/section}
+
+  {section name=i loop=$js}
+  <script type="text/javascript" src="{$js[i]}"></script>
+  {/section}
+</head>

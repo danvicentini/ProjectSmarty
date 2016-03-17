@@ -1,0 +1,379 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    {$head}
+    
+    <body>
+        <div class="page">
+            <div class="content">
+                {$titulo}
+                {$menu}
+                <div class="content_right">
+                    <center>
+                        <div class="titulo_content">
+                            {$smarty.session.projeto.projeto}
+                        </div>
+                    </center>
+                    <h4>» Cadastro de Orçamento</h4>
+                    <div class="content_consumidor">
+                        <form id="form_consumidor" class="form_consumidor" method="post" enctype="multipart/form-data" action="/orcamento/gravar_dados">
+                            <input type="hidden" id="idorcamento" name="idorcamento" value="{$arrOrcamento[0]['idorcamento']|default:''}" />
+                            <fieldset>
+                                <legend><h3>Dados do Orçamento </h3></legend>
+                                <table width='100%'>
+                                    <tr>
+                                        <td align='right' width='180'>Orçamento</td>
+                                        <td>
+                                            <input type='text' name='orcamento' id='orcamento' value="{$arrOrcamento[0]['idorcamento']|default:''}" />
+                                        </td>
+                                        <td align='right' width='180'>Código Fabricante</td>
+                                        <td>
+                                            <input type='text' name='cod_fabricante' id='cod_fabricante' value="{$arrOrcamento[0]['cod_fabricante']|default:''}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    	<td align='right' width='180'>Cliente:</td> 
+                                    	<td>
+                						<input type='text' name='orcamento' id='orcamento' value="{$arrOrcamento[0]['cliente']|default:''}" />
+              						    </td>
+                                    
+                                        <td align='right'>Código SAP</td>
+                                        <td>
+                                            <input type='text' name='cod_sap' id='cod_sap' value="{$arrOrcamento[0]['cod_sap']|default:''}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align='right'>Descrição</td>
+                                        <td>
+                                            <input type='text' name='descricao' id='descricao' value="{$arrOrcamento[0]['descricao']|default:''}"  />
+                                        </td>
+                                        <td align='right'>Modelo</td>
+                                        <td>
+                                            <input type='text' name='modelo' id='modelo' value="{$arrOrcamento[0]['modelo']|default:''}" />
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td align='right'>Patrimônio</td>
+                                        <td>
+                                            <input type='text' name='patrimonio' id='patrimonio' value="{$arrOrcamento[0]['patrimonio']|default:''}"  />
+                                        </td>
+                                        <td align='right'>Cliente Proprietário</td>
+                                        <td>
+                                            <input type='text' name='cliente_prop' id='cliente_prop' value="{$arrOrcamento[0]['cliente_prop']|default:''}" />
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td align='right'>Fabricante</td>
+                                        <td>
+                                            <input type='text' name='fabricante' id='fabricante' value="{$arrOrcamento[0]['fabricante']|default:''}"  />
+                                        </td>
+                                        <td align='right'>Número de Série</td>
+                                        <td>
+                                            <input type='text' name='n_serie' id='n_serie' value="{$arrOrcamento[0]['n_serie']|default:''}" />
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td align='right'>Data Criação</td>
+                                        <td>
+                                            <input type='text' class = 'dateTime' name='data_os' id='data_os' value="{$arrOrcamento[0]['data_os']|default:''}"  />
+                                        </td>
+                                        <td align='right'>Status Comercial</td>
+                                    	<td>
+                                        <select name="lista_comercial" id="lista_comercial">
+                                            {html_options options=$listaComercial selected=$arrOrcamento[0]['cod_comercial']}
+                                        </select>
+                                    	</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td align='right'>N&uacute;mero NF.:</td>
+                                        <td>
+																					<input type='text' name='num_nf_saida' id='num_nf_saida' value="{$arrOrcamento[0]['num_nf_saida']|default:''}" />
+																					
+                                        </td>
+                                        <td align='right'>Status OS.:</td>
+                                        <td>
+																					<select name="lista_status_os" id="lista_status_os">
+																						{html_options options=$listaStatusOs selected=$arrOrcamento[0]['status_os']}
+																					</select>
+                                        </td> 
+                                    </tr>
+                                    
+                                    <tr >
+                                    
+                                        <td align='right'>Devolução</td>
+                                        <td>
+                                            <select name="lista_dev" id="lista_dev">
+                                            {html_options options=$listaDevolvido selected=$arrOrcamento[0]['cod_condicao_devolucao']}
+                                        </select>
+                                        </td>
+                                        
+                                        <td align='right'>Condições Devolução</td>
+                                        <td>
+                                            <select name="lista_cond_dev" id="lista_cond_dev">
+                                            {html_options options=$listaCondDevolvido selected=$arrOrcamento[0]['cond_dev']}
+                                        </select>
+                                        </td>
+                                        
+                                    </tr>
+                                    <tr >
+                                    
+                                        <td align='right'>Empresa</td>
+                                        <td>
+                                            <select name="lista_empresa" id="lista_empresa">
+                                            {html_options options=$listaEmpresas selected=$arrOrcamento[0]['cod_empresa_envio']}
+                                        </select>
+                                        </td>
+                                        
+                                        <td align='right'>T&eacute;cnico</td>
+                                        <td>
+                                            <select name="lista_tec" id="lista_tec">
+                                            {html_options options=$listaTecnicos selected=$arrOrcamento[0]['cod_tecnico_executa']}
+                                        </select>
+                                        </td>
+                                        
+                                    </tr>
+                                    
+                                    <tr >
+                                    
+                                        <td align='right'>Descrição defeito</td>
+                                        <td colspan='3'>
+                                            <input type='text' name='obs' id='obs' size='77' value="{$arrOrcamento[0]['obs']|default:''}"  />
+                                        </td>
+                                        
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td align='right'>Data Aprov Orcamento</td>
+                                        <td>
+                                            <input type='text' class = 'date' name='dat_aprovacao_orcamento' id='dat_aprovacao_orcamento'  value="{$arrOrcamento[0]['dat_aprovacao_orcamento']|default:''}"  />
+                                        </td>
+                                        <td align='right'>Data Enc RNC</td>
+                                        <td>
+                                            <input type='text' class = 'date' name='dat_enc_rnc' id='dat_enc_rnc' value="{$arrOrcamento[0]['dat_enc_rnc']|default:''}" />
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td align='right'>Data Lib. Expedição</td>
+                                        <td>
+                                            <input type='text' class = 'date' name='dat_liberacao_expedicao' id='dat_liberacao_expedicao'  value="{$arrOrcamento[0]['dat_liberacao_expedicao']|default:''}"  />
+                                        </td>
+                                        <td align='right'>Data Lib. Documentos (calib)</td>
+                                        <td>
+                                            <input type='text' class = 'date' name='dat_liberacao_documento' id='dat_liberacao_documento' value="{$arrOrcamento[0]['dat_liberacao_documento']|default:''}" />
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td align='right'>Data Encerr. OS</td>
+                                        <td>
+                                            <input type='text' class = 'date' name='dat_encerramento_os' id='dat_encerramento_os'  value="{$arrOrcamento[0]['dat_encerramento_os']|default:''}"  />
+                                        </td>
+                                        <td></td>
+																				<td></td>
+                                    </tr>
+                                    <tr>
+                                        <td align='right'>Data Entrada Lab. </td>
+                                        <td>
+                                            <input type='text' class = 'date' name='dat_entrada_lab' id='dat_entrada_lab' value="{$arrOrcamento[0]['dat_entrada_lab']|default:''}" />
+                                        </td>
+                                        <td>Laborat&oacute;rio </td>
+																				<td>
+																					<select name="cod_lab" id="cod_lab">
+                                            {html_options options=$listaLabs selected=$arrOrcamento[0]['cod_lab']}
+																					</select>
+																				</td>
+                                    </tr>
+                                    <tr>
+                                        <td align='right'>Data Entrada Lab.(2) </td>
+                                        <td>
+                                            <input type='text' class = 'date' name='dat_entrada_lab2' id='dat_entrada_lab2' value="{$arrOrcamento[0]['dat_entrada_lab2']|default:''}" />
+                                        </td>
+                                        <td>Laborat&oacute;rio (2) </td>
+																				<td>
+																					<select name="cod_lab2" id="cod_lab2">
+                                            {html_options options=$listaLabs selected=$arrOrcamento[0]['cod_lab2']}
+																					</select>
+																				</td>
+                                    </tr>
+                                    <tr>
+                                        <td align='right'>Data Entrada Lab.(3) </td>
+                                        <td>
+                                            <input type='text' class = 'date' name='dat_entrada_lab3' id='dat_entrada_lab3' value="{$arrOrcamento[0]['dat_entrada_lab3']|default:''}" />
+                                        </td>
+                                        <td>Laborat&oacute;rio 3 </td>
+																				<td>
+																					<select name="cod_lab3" id="cod_lab3">
+                                            {html_options options=$listaLabs selected=$arrOrcamento[0]['cod_lab3']}
+																					</select>
+																				</td>
+                                    </tr>
+																		<tr>
+                                        <td align='right'>Data OS. (cria&ccedil;&atilde;o)</td>
+                                        <td>
+                                            <input type='text' class = 'date' name='data_os' id='data_os'  value="{$arrOrcamento[0]['data_os']|default:''}"  />
+                                        </td>
+                                        <td align='right'>Data Recebimento </td>
+                                        <td>
+                                            <input type='text' class = 'date' name='dat_recebimento' id='dat_recebimento' value="{$arrOrcamento[0]['dat_recebimento']|default:''}" />
+                                        </td>
+                                    </tr>
+																		<tr>
+                                        <td align='right'>Historico</td>
+                                        <td colspan = 3>
+                                            <textarea name='historico' id='historico'  cols = 64 rows = 5 >{$arrOrcamento[0]['historico']|default:''}
+																						</textarea>
+                                        </td>
+                                    </tr>
+																		<tr>
+                                        <td align='right'>Laudo T&eacute;cnico</td>
+                                        <td colspan = 3>
+                                            <textarea name='laudo_tecnico' id='laudo_tecnico'  cols = 64 rows = 5 >{$arrOrcamento[0]['laudo_tecnico']|default:''}
+																						</textarea>
+                                        </td>
+                                    </tr>
+																		<tr>
+                                        <td align='right'>Num. Certificado</td>
+                                        <td>
+                                            <input type='text'  name='num_certificado' id='num_certificado'  value="{$arrOrcamento[0]['num_certificado']|default:''}"  />
+                                        </td>
+                                        <td align='right'>Num. Cart&atilde;o Defeito </td>
+                                        <td>
+                                            <input type='text'  name='num_cartao_defeito' id='num_cartao_defeito' value="{$arrOrcamento[0]['num_cartao_defeito']|default:''}" />
+                                        </td>
+                                    </tr>
+																		
+																		<tr>
+                                        <td align='right'>Num. RNC </td>
+                                        <td>
+                                            <input type='text'  name='num_rnc' id='num_rnc'  value="{$arrOrcamento[0]['num_rnc']|default:''}"  />
+                                        </td>
+                                        <td align='right'>Opera&ccedil;&atilde;o (centro de custo) </td>
+                                        <td>
+                                            <input type='text'  name='operacao' id='operacao' value="{$arrOrcamento[0]['operacao']|default:''}" />
+                                        </td>
+                                    </tr>
+																		<tr>
+                                        <td align='right'>O.S. </td>
+                                        <td >
+                                            <input type='text'  name='dsc_os' id='dsc_os'  value="{$arrOrcamento[0]['dsc_os']|default:''}"  />
+                                        </td>
+                                        <td align='right'></td>
+                                        <td></td>
+                                    </tr>
+																		<tr>
+                                        <td align='right'>Prazo p/ Cliente</td>
+                                        <td>
+                                            <input type='text' class = 'date' name='dat_prazo_os' id='dat_prazo_os'  value="{$arrOrcamento[0]['dat_prazo_os']|default:''}"  />
+                                        </td>
+                                        <td align='right'>Pr&oacute;xima Calibra&ccedil;&atilde;o</td>
+                                        <td>
+                                            <input type='text' class = 'date' name='dat_proxima_calibragem' id='dat_proxima_calibragem' value="{$arrOrcamento[0]['dat_proxima_calibragem']|default:''}" />
+                                        </td>
+                                    </tr>
+																		<tr>
+                                        <td align='right'>Num. Or&ccedil;mento</td>
+                                        <td>
+                                            <input type='text' name='num_os' id='num_os'  value="{$arrOrcamento[0]['num_os']|default:''}"  />
+                                        </td>
+                                        <td align='right'>Num. Or&ccedil;mento Ext.</td>
+                                        <td>
+                                            <input type='text'  name='num_os_ext' id='num_os_ext' value="{$arrOrcamento[0]['num_os_ext']|default:''}" />
+                                        </td>
+                                    </tr>
+																		<tr>
+                                        <td align='right'>Valor Calibra&ccedil;&atilde;o</td>
+                                        <td>
+                                            <input type='text' class = 'valor calcula' name='valor_calibracao'  id='valor_calibracao'  value="{$arrOrcamento[0]['valor_calibracao']|default:''}"  />
+                                        </td>
+                                        <td align='right'>Valor Or&ccedil;mento Ext.</td>
+                                        <td>
+                                            <input type='text' class = 'valor calcula'  name='valor_orc_ext'   id='valor_orc_ext' value="{$arrOrcamento[0]['valor_orc_ext']|default:''}" />
+                                        </td>
+                                    </tr>
+																		<tr>
+                                        <td align='right'>Valor pe&ccedil;as</td>
+                                        <td>
+                                            <input type='text' class = 'valor calcula' name='valor_pecas'  id='valor_pecas'  value="{$arrOrcamento[0]['valor_pecas']|default:''}"  />
+                                        </td>
+                                        <td align='right'>Valor Reparo</td>
+                                        <td>
+                                            <input type='text' class = 'valor calcula'   name='valor_reparo' id='valor_reparo' value="{$arrOrcamento[0]['valor_reparo']|default:''}" />
+                                        </td>
+                                    </tr>
+																		<tr>
+                                        <td align='right'></td>
+                                        <td></td>
+                                        <td align='right'>Valor Total</td>
+                                        <td>
+                                            <input type='text' class = 'valor' readonly   name='valor_total' id='valor_total' value="{$arrOrcamento[0]['valor_total']|default:''}" />
+                                        </td>
+                                    </tr>
+																		<tr>
+																				<td></td>
+																				<td></td>
+                                        <td align='right'><b>Faturado ?</b></td>
+                                        <td>
+                                            <input type='checkbox' name='chk_faturado' id='chk_faturado'  {if $arrOrcamento[0]['ind_faturado'] eq "1"}checked{/if} />
+                                        </td>
+                                    </tr>
+																		
+                                    <tr >
+																			<table class="content_table" id = 'componente_table' style="width: 100%">
+																				<tr colspan = 3 class="table_title"> Componentes Substituidos <img class='addComp' style = 'cursor: pointer;' src = '/files/images/add.png'></tr>
+																				<tr class="table_title">
+																					<td>Qtd.</td>
+																					<td>Produto</td>
+																					<td>&nbsp;</td>
+																				</tr>
+																				{foreach key=key item=item from=$arrComponentes}
+																					<tr class = 'componente'>
+																						<input type = 'hidden' name = 'compID[]' id = 'compID[]' size = 2 value = '{$item.cod_componente_orcamento}' />
+																						<td><input type = 'text' name = 'qtd_itens[]' id = 'qtd_itens[]' size = 2 value = '{$item.qtd_itens}' /></td>
+																						<td><input type = 'text' name = 'cod_item[]' id = 'cod_item[]' size = 40 onkeydown = 'buscaComponente(this);' value = '{$item.descricao}' /> </td>
+																						<td><img style = 'cursor: pointer;' id_componente = '{$item.cod_componente_orcamento}' class = 'excluirComp' src = '/files/images/dialog-cancel-3.png' onclick = 'excluirComp(this, {$item.cod_componente_orcamento} )' ></td>
+																					</tr>	
+																				{/foreach}
+																			</table>
+                                    </tr>
+                                    <tr >
+																			<table class="content_table" id = 'servico_table' style="width: 100%">
+																				<tr colspan = 3 class="table_title"> Servi&ccedil;os <img class='addServico' style = 'cursor: pointer;' src = '/files/images/add.png'></tr>
+																				<tr class="table_title">
+																					<td>cod servi&ccedil;o</td>
+																					<td>Nome Servi&ccedil;o</td>
+																					<td>&nbsp;</td>
+																				</tr>
+																				{foreach key=key item=item from=$arrServicoOrcamento}
+																					<tr class = 'componente'>
+																					
+																						<td>{$item.cod_servico}</td>
+																						<td>{$item.nom_servico}</td>
+																						<td><img style = 'cursor: pointer;' id_servico = '{$item.cod_servico_orcamento}' src = '/files/images/dialog-cancel-3.png' class = 'excluirServ' ></td>
+																					</tr>	
+																				{/foreach}
+																			</table>
+                                    </tr>
+                                    
+                                </table>
+                            </fieldset>
+                            <br />
+                            
+                            <br />
+                            <div>
+                                <center><input type="button" value="Gravar" onclick="gravar()" /></center>
+                            </div>
+                        </form>
+                    </div>
+                    <br />
+                    
+                </div>
+            </div>
+						
+        </div>
+        {$rodape}
+    </body>
+</html>

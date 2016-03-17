@@ -1,0 +1,326 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    {$head}
+    
+    <body>
+        <div class="page">
+            <div class="content">
+                {$titulo}
+                {$menu}
+                <div class="content_right">
+                    <center>
+                        <div class="titulo_content">
+                            {$smarty.session.projeto.projeto}
+                        </div>
+                    </center>
+                    <h4>» Retirada de Produto</h4>
+                    <div class="content_consumidor">
+                        <form id="form_consumidor" class="form_consumidor" method="post" enctype="multipart/form-data" action="/produtos/retirar_produtos">
+                            <center><input type = 'text' name = 'idorcamento' id = 'idorcamento' value = "{$orcSel|default:''}" /> 
+															<input id = 'btnBuscar' name = 'btnBuscar' type="button" value="buscar" onclick="" /></center> 
+														<br>
+															
+                            
+                                {if $orcSel eq 0}
+																	
+																{else}
+																	
+																		<fieldset>
+																			<legend><h3>Dados do Orçamento </h3></legend>
+																			<table width='100%'>
+																					<tr>
+																							<td align='right' width='180'><b>Orçamento: </b></td>
+																							<td>
+																									<label type='text' name='orcamento' id='orcamento'  >{$arrOrcamento[0]['idorcamento']|default:'não preenchido'}</label>
+																							</td>
+																							<td align='right' width='180'><b>Código Fabricante: </b></td>
+																							<td>
+																									<label >{$arrOrcamento[0]['cod_fabricante']|default:'não preenchido':'não preenchido'}</label>
+																							</td>
+																					</tr>
+																					<tr>
+																						<td align='right' width='180'><b>Cliente: </b></td> 
+																						<td>
+																							<label >{$arrOrcamento[0]['cliente']|default:'não preenchido':'não preenchido'}</label>
+																						</td>
+																					
+																							<td align='right'><b>Código SAP: </b></td>
+																							<td>
+																									<label>{$arrOrcamento[0]['cod_sap']|default:'não preenchido':'não preenchido'}</label>
+																							</td>
+																					</tr>
+																					<tr>
+																							<td align='right'><b>Descrição: </b></td>
+																							<td>
+																									<label >{$arrOrcamento[0]['descricao']|default:'não preenchido':'não preenchido'}</label>
+																							</td>
+																							<td align='right'><b>Modelo: </b></td>
+																							<td>
+																									<label>{$arrOrcamento[0]['modelo']|default:'não preenchido':'não preenchido'}</label>
+																							</td>
+																					</tr>
+																					
+																					<tr>
+																							<td align='right'><b>Patrimônio: </b></td>
+																							<td>
+																									<label >{$arrOrcamento[0]['patrimonio']|default:'não preenchido':'não preenchido'}</label>
+																							</td>
+																							<td align='right'><b>Cliente Proprietário: </b></td>
+																							<td>
+																									<label >{$arrOrcamento[0]['cliente_prop']|default:'não preenchido'}</label>
+																							</td>
+																					</tr>
+																					
+																					<tr>
+																							<td align='right'><b>Fabricante: </b></td>
+																							<td>
+																									<label >{$arrOrcamento[0]['fabricante']|default:'não preenchido'}</label>
+																							</td>
+																							<td align='right'><b>Número de Série: </b></td>
+																							<td>
+																									<label >{$arrOrcamento[0]['n_serie']|default:'não preenchido'}</label>
+																							</td>
+																					</tr>
+																					
+																					<tr>
+																							<td align='right'><b>Data Criação: </b></td>
+																							<td>
+																									<label >{$arrOrcamento[0]['data_os']|default:'não preenchido'}</label>
+																							</td>
+																							<td align='right'><b>Status Comercial: </b></td>
+																						<td>
+																							<label >{$arrOrcamento[0]['cod_comercial']|default:'não preenchido'}</label>
+																								 
+																						</td>
+																					</tr>
+																					
+																					<tr >
+                                    
+                                        <td align='right'><b>Devolução: </b></td>
+                                        <td>
+                                            <label >{$arrOrcamento[0]['cod_condicao_devolucao']|default:'não preenchido'}</label>
+                                            
+                                        </td>
+                                        
+                                        <td align='right'><b>Condições Devolução: </b></td>
+                                        <td>
+                                            <label >{$arrOrcamento[0]['cond_dev']|default:'não preenchido'}</label>
+                                            
+                                        </td>
+                                        
+                                    </tr>
+                                    <tr >
+                                    
+                                        <td align='right'><b>Empresa: </b></td>
+                                        <td>
+                                            <label >{$arrOrcamento[0]['cod_empresa_envio']|default:'não preenchido'}</label>
+                                        </td>
+                                        
+                                        <td align='right'><b>T&eacute;cnico: </b></td>
+                                        <td>
+                                            <label >{$arrOrcamento[0]['cod_tecnico_executa']|default:'não preenchido'}</label>
+                                        </td>
+                                        
+                                    </tr>
+																					
+																					<tr >
+																					
+																							<td align='right'><b>Descrição defeito: </b></td>
+																							<td colspan='3'>
+																									<label >{$arrOrcamento[0]['obs']|default:'não preenchido'}</label>
+																							</td>
+																							
+																					</tr>
+																					
+																					<tr>
+																							<td align='right'><b>Data Aprov Orcamento: </b></td>
+																							<td>
+																									<label >{$arrOrcamento[0]['dat_aprovacao_orcamento']|date_format:"%d/%m/%Y"|default:'não preenchido'}</label>
+																							</td>
+																							<td align='right'><b>Data Enc RNC: </b></td>
+																							<td>
+																									<label >{$arrOrcamento[0]['dat_enc_rnc']|date_format:"%d/%m/%Y"|default:'não preenchido'}</label>
+																							</td>
+																					</tr>
+																					
+																					<tr>
+																							<td align='right'><b>Data Lib. Expedição: </b></td>
+																							<td>
+																									<label >{$arrOrcamento[0]['dat_liberacao_expedicao']|date_format:"%d/%m/%Y"|default:'não preenchido'}</label>
+																							</td>
+																							<td align='right'><b>Data Lib. Documentos (calib): </b></td>
+																							<td>
+																									<label >{$arrOrcamento[0]['dat_liberacao_documento']|date_format:"%d/%m/%Y"|default:'não preenchido'}</label>
+																							</td>
+																					</tr>
+																					
+																					<tr>
+																							<td align='right'><b>Data Encerr. OS: </b></td>
+																							<td>
+																									<label >{$arrOrcamento[0]['dat_encerramento_os']|date_format:"%d/%m/%Y"|default:'não preenchido'}</label>
+																							</td>
+																							<td align='right'><b>Data Entrada Lab.: </b></td>
+																							<td>
+																									<label >{$arrOrcamento[0]['dat_entrada_lab']|date_format:"%d/%m/%Y"|default:'não preenchido'}</label>
+																							</td>
+																					</tr>
+																					<tr>
+																							<td align='right'><b>Data OS. (cria&ccedil;&atilde;o): </b></td>
+																							<td>
+																									<label >{$arrOrcamento[0]['data_os']|date_format:"%d/%m/%Y"|default:'não preenchido'}</label>
+																							</td>
+																							<td align='right'><b>Data Recebimento: </b></td>
+																							<td>
+																									<label >{$arrOrcamento[0]['dat_recebimento']|date_format:"%d/%m/%Y"|default:'não preenchido'}</label>
+																							</td>
+																					</tr>
+																					<tr>
+																							<td align='right'><b>Historico : </b></td>
+																							<td colspan = 3>
+																									<label>{$arrOrcamento[0]['historico']|default:'não preenchido'}</label>
+																							</td>
+																					</tr>
+																					<tr>
+																							<td align='right'><b>Laudo T&eacute;cnico </b></td>
+																							<td colspan = 3>
+																									<label>{$arrOrcamento[0]['laudo_tecnico']|default:'não preenchido'}</label>
+																							</td>
+																					</tr>
+																					<tr>
+																							<td align='right'><b>Num. Certificado: </b></td>
+																							<td>
+																									<label >{$arrOrcamento[0]['num_certificado']|default:'não preenchido'}</label>
+																							</td>
+																							<td align='right'><b>Num. Cart&atilde;o Defeito: </b></td>
+																							<td>
+																									<label>{$arrOrcamento[0]['num_cartao_defeito']|default:'não preenchido'}</label>
+																							</td>
+																					</tr>
+																					
+																					<tr>
+																							<td align='right'><b>Num. RNC: </b></td>
+																							<td>
+																									<label >{$arrOrcamento[0]['num_rnc']|default:'não preenchido'}</label>
+																							</td>
+																							<td align='right'><b>Opera&ccedil;&atilde;o (centro de custo): </b></td>
+																							<td>
+																									<label >{$arrOrcamento[0]['operacao']|default:'não preenchido'}</label>
+																							</td>
+																					</tr>
+																					<tr>
+																							<td align='right'><b>O.S.: </b></td>
+																							<td >
+																									<label>{$arrOrcamento[0]['dsc_os']|default:'não preenchido'}</label>
+																							</td>
+																							<td align='right'><b></td>
+																							<td></td>
+																					</tr>
+																					<tr>
+																							<td align='right'><b>Prazo p/ Cliente: </b></td>
+																							<td>
+																									<label>{$arrOrcamento[0]['dat_prazo_os']|date_format:"%d/%m/%Y"|default:'não preenchido'}</label>
+																							</td>
+																							<td align='right'><b>Pr&oacute;xima Calibra&ccedil;&atilde;o: </b></td>
+																							<td>
+																									<label>{$arrOrcamento[0]['dat_proxima_calibragem']|date_format:"%d/%m/%Y"|default:'não preenchido'}</label>
+																							</td>
+																					</tr>
+																					<tr>
+																							<td align='right'><b>Num. Or&ccedil;mento: </b></td>
+																							<td>
+																									<label >{$arrOrcamento[0]['num_os']|default:'não preenchido'}</label>
+																							</td>
+																							<td align='right'><b>Num. Or&ccedil;mento Ext.: </b></td>
+																							<td>
+																									<label >{$arrOrcamento[0]['num_os_ext']|default:'não preenchido'}</label>
+																							</td>
+																					</tr>
+																					<tr>
+																							<td align='right'><b>Valor Calibra&ccedil;&atilde;o: </b></td>
+																							<td>
+																									<label>{$arrOrcamento[0]['valor_calibracao']|number_format:2:",":"."|default:'não preenchido'}</label>
+																							</td>
+																							<td align='right'><b>Valor Or&ccedil;mento Ext.: </b></td>
+																							<td>
+																									<label >{$arrOrcamento[0]['valor_orc_ext']|number_format:2:",":"."|default:'não preenchido'}</label>
+																							</td>
+																					</tr>
+																					<tr>
+																							<td align='right'><b>Valor pe&ccedil;as: </b></td>
+																							<td>
+																									<label>{$arrOrcamento[0]['valor_pecas']|number_format:2:",":"."|default:'não preenchido'}</label>
+																							</td>
+																							<td align='right'><b>Valor Reparo: </b></td>
+																							<td>
+																									<label>{$arrOrcamento[0]['valor_reparo']|number_format:2:",":"."|default:'não preenchido'}</label>
+																							</td>
+																					</tr>
+																					<tr>
+																							<td align='right'><b></td>
+																							<td></td>
+																							<td align='right'><b>Valor Total</b></td>
+																							<td>
+																									<label >{$arrOrcamento[0]['valor_total']|number_format:2:",":"."|default:'não preenchido'}</label>
+																							</td>
+																					</tr>
+																					<tr>
+																							<td></td>
+																							<td></td>
+																							<td align='right'><b><b>Faturado ?</b></td>
+																							<td>
+																									<label >{if $arrOrcamento[0]['ind_faturado'] eq "1"}Sim{else}Não{/if}</label>
+																							</td>
+																					</tr>
+																					
+																					<tr >
+																						<table class="content_table" id = 'componente_table' style="width: 100%">
+																							<tr colspan = 3 class="table_title"> Expedição <img class='addComp' style = 'cursor: pointer;' src = '/files/images/add.png'></tr>
+																							<tr class="table_title">
+																								<td>Qtd. OS.</td>
+																								<td>Produto</td>
+																								<td>&nbsp;</td> 
+																							</tr>
+																							{foreach key=key item=item from=$arrComponentes}
+																								<tr class = 'componente'>
+																									<input   type = 'hidden' name = 'compID[]' id = 'compID[]' size = 2 value = '{$item.cod_retirada_orcamento}' />
+																									<td><input   type = 'text' name = 'qtd_itens[]' id = 'qtd_itens[]' size = 2 value = '{$item.qtd_itens}' /></td>
+																									<td><input   type = 'text' name = 'cod_item[]'  id = 'cod_item[]' size = 40 onkeydown = 'buscaComponente(this);' value = '{$item.descricao}' /> </td>
+																									<td><img style = 'cursor: pointer;' id_componente = '{$item.cod_componente_orcamento}' class = 'excluirComp' src = '/files/images/dialog-cancel-3.png' onclick = 'excluirComp( {$item.cod_retirada_orcamento}, this )' ></td>
+																								</tr>	
+																							{/foreach}
+																						</table>
+																					</tr>
+																					<tr >
+																						<table class="content_table" id = 'servico_table' style="width: 100%">
+																							<tr colspan = 3 class="table_title"> Servi&ccedil;os</tr>
+																							<tr class="table_title">
+																								<td>cod servi&ccedil;o</td>
+																								<td>Nome Servi&ccedil;o</td>
+																							</tr>
+																							{foreach key=key item=item from=$arrServicoOrcamento}
+																								<tr class = 'componente'>
+																								
+																									<td>{$item.cod_servico}</td>
+																									<td>{$item.nom_servico}</td>
+																								</tr>	
+																							{/foreach}
+																						</table>
+																					</tr>
+																					
+																			</table>
+																	</fieldset>
+																	<br>
+																	<center><input type="button" value="gravar" onclick="gravar()" /></center>
+																	<br>
+																{/if}
+																
+                        </form>
+                    </div>
+                    <br />
+                    
+                </div>
+            </div>
+        </div>
+        {$rodape}
+    </body>
+</html>

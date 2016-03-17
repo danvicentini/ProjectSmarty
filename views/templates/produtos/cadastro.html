@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    {$head}
+    
+    <body>
+        <div class="page">
+            <div class="content">
+                {$titulo}
+                {$menu}
+                <div class="content_right">
+                    <center>
+                        <div class="titulo_content">
+                            {$smarty.session.projeto.projeto}
+                        </div>
+                    </center>
+                    <h4>» Cadastro de Produto</h4>
+                    <div class="content_consumidor">
+                        <form id="form_consumidor" class="form_consumidor" method="post" enctype="multipart/form-data" action="/produtos/gravar_dados">
+                            <input type="hidden" id="prd_id" name="prd_id" value="{$prd_id|default:''}" />
+                            <fieldset>
+                                <legend><h3>Dados do Produto </h3></legend>
+                                <table width='100%'>
+                                    <tr>
+                                        <td align='right' width='180'>Acessórios</td>
+                                        <td>
+                                            <input type='text' name='acessorios' id='acessorios' value="{$arrProduto['acessorios']|default:''}" />
+                                        </td>
+                                        <td align='right' width='180'>Código Fabricante</td>
+                                        <td>
+                                            <input type='text' name='cod_fabricante' id='cod_fabricante' value="{$arrProduto['cod_fabricante']|default:''}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>*Cliente:</td> 
+                                    	<td>
+                						<select name="idcliente" id="idcliente">
+                  							{html_options options=$lista_clientes}
+                						</select>
+              						    </td>
+                                        
+                                        
+                                        <td align='right'>Código SAP</td>
+                                        <td>
+                                            <input type='text' name='cod_sap' id='cod_sap' value="{$arrProduto['cod_sap']|default:''}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align='right'>Descrição</td>
+                                        <td>
+                                            <input type='text' name='descricao' id='descricao' value="{$arrProduto['descricao']|default:''}"  />
+                                        </td>
+                                        <td align='right'>Modelo</td>
+                                        <td>
+                                            <input type='text' name='modelo' id='modelo' value="{$arrProduto['modelo']|default:''}" />
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td align='right'>Patrimônio</td>
+                                        <td>
+                                            <input type='text' name='patrimonio' id='patrimonio' value="{$arrProduto['patrimonio']|default:''}"  />
+                                        </td>
+                                        <td align='right'>Cliente Proprietário</td>
+                                        <td>
+                                            <select name="cliente_prop" id="cliente_prop">
+																								{html_options options=$listaClienteProp selected=$arrProduto['cliente_prop']}
+																						</select>		
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td align='right'>Fabricante</td>
+                                        <td>
+                                            <input type='text' name='fabricante' id='fabricante' value="{$arrProduto['nom_nome_fantasia']|default:''}" readonly  />
+                                        </td>
+                                        <td align='right'>Número de Série</td>
+                                        <td>
+                                            <input type='text' name='n_serie' id='n_serie' value="{$arrProduto['n_serie']|default:''}" />
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr >
+                                    
+                                        <td align='right'>Observação</td>
+                                        <td colspan='3'>
+                                            <input type='text' name='obs' id='obs' size='77' value="{$arrProduto['obs']|default:''}"  />
+                                        </td>
+                                        
+                                    </tr>
+                                    
+                                </table>
+																<script>
+																	
+																	$( document ).ready(function() {
+																		$('#cliente_prop').change(function(){
+																			$('#fabricante').val($('#cliente_prop :selected').text());
+																		});
+																	});
+																	
+															</script>
+                            </fieldset>
+                            <br />
+                            
+                            <br />
+                            <div>
+                                <center><input type="button" value="Gravar" onclick="gravar()" /></center>
+                            </div>
+                        </form>
+                    </div>
+                    <br />
+                    
+                </div>
+            </div>
+        </div>
+        {$rodape}
+    </body>
+</html>

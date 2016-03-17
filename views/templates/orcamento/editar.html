@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  {$head}
+
+  <body>
+    <div class="page">
+      <div class="content">
+        {if !isset($overlay)}
+        {$titulo}
+        {$menu}
+        {/if}
+        <div class="content_right">
+          {if !isset($overlay)}
+          <div class="titulo_content">
+            Projeto de Eficiência Energética - PEE ANEEL <br/> 
+            Implantação de módulos semafóricos com tecnologia LED
+          </div>
+          {/if}
+          <h4>» Editar semáforo</h4>
+          <div class="content_semaforo">
+            <form name="form_semaforo" id="form_semaforo" class="form_semaforo">
+              <input type="hidden" value="{if isset($arrSemaforo)}{$arrSemaforo['sem_id']}{/if}" id="sem_id" name="sem_id" />
+              <input type="hidden" value="{if isset($arrSemaforo)}{$arrSemaforo['gf_potencia']}{/if}" id="potencia_inicial" name="potencia_inicial" />
+              <input type="hidden" value="{if isset($arrSemaforo)}{$arrSemaforo['gf_id']}{/if}" id="gf_inicial" name="gf_inicial" />
+              <input type="hidden" value="{$overlay|default:''}" id="overlay" name="overlay" />
+              <div class="editar_semaforo">
+                Estado: {$estado_nome}
+              </div>
+              <div class="editar_semaforo">
+                Cidade: {$cidade_nome}
+              </div>
+              <div class="editar_semaforo">
+                Endereço: {$arrSemaforo['end_local']}
+              </div>
+              <div class="editar_semaforo">
+                Grupo Focal: {$arrSemaforo['gf_nome']}
+              </div>
+              <div class="editar_semaforo">
+                Tipo: {$arrSemaforo['gft_nome']}
+              </div>
+              <div class="editar_semaforo">
+                Descrição: {$arrSemaforo['sem_descricao']}
+              </div>
+              {if !$arrSemaforo['instalado']}
+              <div>
+                <label>Nova instalação?</label>
+                <input type="checkbox" name="nova_instalacao" id="nova_instalacao" onchange="show_detalhes('{$arrSemaforo['instalado']|date_format:"%d/%m/%Y"}')"></input>
+                <span style="font-size: 14px;">Deixe marcada essa opção se foi realizada uma nova instalação neste semafóro</span>
+              </div>
+              
+              <div class="semaforo_hidden">
+                <label>*Grupo focal instalado:</label>
+                <select onchange="getPotenciaGrupoFocal()" name="grupo_focal_instalado" id="grupo_focal_instalado" style="width: 250px">
+                  <option value="">Selecione...</option>
+                  {html_options options=$lista_grupo_focal}
+                </select>
+              </div>
+              <div class="semaforo_hidden">
+                <label>*Data instalação:</label>
+                <input style="width: 150px;" name="data_instalacao" id="data_instalacao"></input>
+              </div>
+              <div class="semaforo_hidden">
+                <label>Comentários:</label>
+                <textarea name="detalhes" id="detalhes" style="width: 350px; height: 75px"></textarea>
+              </div>
+              {else}
+              <div>
+                <center><p><i><b>Este semáforo já possui uma instalação do padrão CPFL.</b></i></p></center>
+              </div>
+              <div class="remover_instalacao">
+                <span><a href="javascript:remover_instalacao({$arrSemaforo['sem_id']}, {$arrSemaforo['gf_id']})"><img src="/files/images/dialog-cancel-3.png" /> Remover instalação</a></span>
+              </div>
+              <div class="comentarios">
+                <label>Comentários:</label>
+                <p>{$detalhes_instalacao|default:"<i>Nenhum comentário inserido.</i>"}</p></center>
+              </div>
+              {/if}
+              <div id="potencia">
+                <label style="width: 165px">Potência total inicial:</label> 
+                <span style="padding-top: 5px; float: left"><b>{$arrSemaforo['gf_potencia']} W</b></span>
+              </div>
+              <div id="potencia">
+                <label style="width: 165px">Potência total instalada:</label> 
+                <span style="padding-top: 5px; float: left"><span id="potencia_instalada">{if {$arrSemaforo['gf_potencia_instalada']}}<b>{$arrSemaforo['gf_potencia_instalada']} W</b>{else}<i>Nenhuma potência instalada.</i>{/if}</span></span>
+              </div>
+              <div id="potencia">
+                <label style="width: 165px">Potência economizada:</label> 
+                <span style="padding-top: 5px; float: left"><span id="potencia_economizada">{if $arrSemaforo['gf_potencia_economizada']}<b>{$arrSemaforo['gf_potencia_economizada']} W</b>{else}<i>Nenhuma potência instalada.</i>{/if}</span></span>
+              </div>
+              <br/>
+              
+              <div>
+                <center><br/>{if !$arrSemaforo['instalado']}<input type="button" value="Gravar" onclick="gravar()" />{/if}</center>
+              </div>
+              
+            </form>
+          </div>          
+        </div>
+      </div> 
+    </div>
+    {if !isset($overlay)}{$rodape} {/if}
+
+  </body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    {$head}
+    <body>
+        <div class="page">
+            <div class="content">
+                {$titulo} {$menu}
+                <div class="content_right">
+                    <center>
+                        <div class="titulo_content">
+                            {$smarty.session.projeto.projeto}</div>
+                    </center>
+
+                    <h4>» Lista de Pessoas</h4>
+
+                    <div style="text-align: right; margin-right: 25px;">
+                        <a href="/pessoas/cadastro"> <img src="/files/images/new.png" /> Cadastrar novo</a>
+                    </div>
+
+                    <div id='solar_listar_filtro'>
+                        <form method="POST" enctype="multipart/form-data">
+                            
+                            <br />
+                            <input type='text' name="cod_funcionario" placeholder = 'ID' id="cod_funcionario" value="{if $filtro['cod_funcionario'] eq ''}{else}{$filtro['cod_funcionario']}{/if}" />
+                            <input type='text' name="cpf" id="cpf" placeholder  = 'CPF' value="{if $filtro['cpf'] eq ''}{else}{$filtro['cpf']}{/if}" />
+                            <input type='text' name="nom_funcionario" placeholder  = 'Nome' id="nom_funcionario" value="{if $filtro['nom_funcionario'] eq ''}{else}{$filtro['nom_funcionario']}{/if}" />
+                            <br />
+                            <div>
+                                <input type='submit' name="pesquisar" value='Pesquisar' />
+                                <input type='submit' name="exportar" value='Exportar para Excel' />
+                                {if $perfilUser != 4}
+                                <!--<input type='button' name="importar" value='Importar de Excel' onclick='$(this).hide();$("#importar_file").show();$("#importar_button").show();' />  -->
+                                <input type='file' name="importar" style='display:none' id='importar_file' />
+                                <input type='submit' name="importar" value='Importar de Excel' style='display:none' id='importar_button' />
+                                {/if}
+                            </div>
+                        </form>
+                    </div>
+
+                    <div style='text-align: center; color: green;'>{$mensagem}</div>
+					 
+                    <div class="content_empreendimento">
+                        <table class="content_table" style="width: 100%">
+                            <tr class="table_title">
+                                <td style="width: 90px">ID</td>
+                                
+                                <td>Nome</td>
+                                <td>Empresa</td>
+                                <td>Telefone</td>
+                                <td>Celular</td>
+                                <td colspan="3"></td>
+                            </tr>
+                            
+                            <div id="content_empreendimento"></div>     
+                            {foreach from=$arrPessoas item=pessoas}
+                    
+														
+                            <tr>
+                               <td>{$pessoas['cod_funcionario']}</td>
+                                <td>{$pessoas['nom_funcionario']}</td>
+                                <td>{$pessoas['nom_nome_fantasia']}</td>
+                                <td>{$pessoas['telefone']}</td>
+                                <td>{$pessoas['celular']}</td>
+                                {if $perfilUser != 4}<td style="width: 20px"><center><a title="Editar" href="/pessoas/cadastro/pes_id/{$pessoas['cod_funcionario']}"><img title="Editar" src="/files/images/edit-6.png" /></a></center></td>{/if}
+                                <td style="width: 20px"><center><a title="Visualizar" href="/pessoas/cadastro/pes_id/{$pessoas['cod_funcionario']}/vis/1"><img title="Visualizar" src="/files/images/map-magnify.png" /></a></center></td>
+                                {if $perfilUser != 4}<td style="width: 20px"><center><a title="Excluir" href="javascript:excluir({$pessoas['cod_funcionario']})"><img title="Excluir" src="/files/images/dialog-cancel-3.png" /></a></center></td>{/if}
+                            </tr>
+                        
+                            {/foreach}
+                        </table>
+                    </div>
+					
+					<div>{$paginacao}</div>			
+                    <br />
+                    <center>Total de Registros: <strong>{count($arrProduto)}</strong></center>
+                </div>
+            </div>
+        </div>
+       
+        {$rodape}
+    </body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    {$head}
+    <body>
+        <div class="page">
+            <div class="content">
+                {$titulo} {$menu}
+                <div class="content_right">
+                    <center>
+                        <div class="titulo_content">
+                            {$smarty.session.projeto.projeto}</div>
+                    </center>
+
+                    <h4>» Lista de Or&ccedil;amentos</h4>
+
+                    <div style="text-align: right; margin-right: 25px;">
+                      <!--  <a href="/orcamento/cadastro"> <img src="/files/images/new.png" /> Cadastrar novo</a> -->
+                    </div>
+
+                    <div id='solar_listar_filtro'>
+                        <form method="post" enctype="multipart/form-data">
+                            
+                            <br />
+                            <input type='text' name="idorcamento" placeholder = 'ID' id="idorcamento" value="{if $filtro['idorcamento'] eq ''}{else}{$filtro['UC']}{/if}" />
+                            <input type='text' name="descricao" placeholder = 'Descrição' id="descricao" value="{if $filtro['descricao'] eq ''}{else}{$filtro['CPF']}{/if}" />
+                            <input type='text' name="modelo" placeholder = 'Modelo' id="modelo" value="{if $filtro['modelo'] eq ''}{else}{$filtro['NIS']}{/if}" />
+                            <br />
+                            <div>
+                                <input type='submit' name="pesquisar" value='Pesquisar' />
+                                <input type='submit' name="exportar" value='Exportar para Excel' />
+                                {if $perfilUser != 4}
+                                <!--<input type='button' name="importar" value='Importar de Excel' onclick='$(this).hide();$("#importar_file").show();$("#importar_button").show();' />  -->
+                                <input type='file' name="importar" style='display:none' id='importar_file' />
+                                <input type='submit' name="importar" value='Importar de Excel' style='display:none' id='importar_button' />
+                                {/if}
+                            </div>
+                        </form>
+                    </div>
+
+                    <div style='text-align: center; color: green;'>{$mensagem}</div>
+					 
+                    <div class="content_empreendimento">
+                        <table class="content_table" style="width: 100%">
+                            <tr class="table_title">
+                                <td style="width: 90px">Os.</td>
+                                
+                                <td>Descrição</td>
+                                <td>Cliente</td>
+                                <td>Cód Fabricante</td>
+                                <td>Modelo</td>
+                                <td colspan="4"></td>
+                            </tr>
+                            
+                            <div id="content_empreendimento"></div>     
+                            {foreach from=$arrOrcamento item=orcamento}
+                    
+                      
+                            <tr>
+                               <td>{$orcamento['idorcamento']}</td>
+                                <td>{$orcamento['descricao']}</td>
+                                <td>{$orcamento['cliente']}</td>
+                                <td>{$orcamento['cod_fabricante']}</td>
+                                <td>{$orcamento['modelo']}</td>
+                                {if $perfilUser != 4}<td style="width: 20px"><center><a title="Editar" href="/orcamento/cadastro/prd_id/{$orcamento['idorcamento']}"><img title="Editar" src="/files/images/edit-6.png" /></a></center></td>{/if}
+                                <td style="width: 20px"><center><a target = '_blank' title="Visualizar" href="/orcamento/visualizar/prd_id/{$orcamento['idorcamento']}"><img title="Visualizar" src="/files/images/map-magnify.png" /></a></center></td>
+                                <td style="width: 20px"><center><a target = '_blank' title="Visualizar" href="/orcamento/visualizar/prd_id/{$orcamento['idorcamento']}/pdf/1"><img title="PDF" src="/files/images/pdf.png" /></a></center></td>
+                                {if $perfilUser != 4}<td style="width: 20px"><center><a title="Excluir" href="javascript:excluir({$orcamento['prd_id']})"><img title="Excluir" src="/files/images/dialog-cancel-3.png" /></a></center></td>{/if}
+                            </tr>
+                        
+                            {/foreach}
+                        </table>
+                    </div>
+					
+					<div>{$paginacao}</div>			
+                    <br />
+                    <center>Total de Registros: <strong>{count($arrOrcamento)}</strong></center>
+                </div>
+            </div>
+        </div>
+        <script>
+				
+
+				</script>
+        {$rodape}
+    </body>
+</html>

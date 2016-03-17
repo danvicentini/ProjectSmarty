@@ -1,0 +1,557 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    {$head}
+    <script type="text/javascript" src="{$geo_url}?key={$api_key}&sensor=false"></script>
+    <script type="text/javascript">
+                var geocoder = new google.maps.Geocoder();
+                var map;
+                var marker;
+                function geocodePosition(pos) {
+                geocoder.geocode({
+                latLng: pos
+                }, function(responses) {
+                if (responses && responses.length > 0) {
+                $('#latitude').val(pos.lat());
+                        $('#longitude').val(pos.lng());
+                } else {
+                alert('Endereço não encontrado');
+                }
+                });
+                }
+
+        function initialize() {
+        latLng = new google.maps.LatLng({$lat_default}, {$lng_default});
+                var mapOptions = {
+                center: latLng,
+                        zoom: {$zoom},
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                map = new google.maps.Map($("#map_consumidor")[0], mapOptions);
+                marker = new google.maps.Marker({
+                position: latLng,
+                        title: 'Arraste para encontrar o ponto',
+                        map: map,
+                        draggable: true
+                });
+                google.maps.event.addListener(marker, 'dragend', function() {
+                geocodePosition(marker.getPosition());
+                });
+        }
+
+        $(document).ready(function()
+        {
+        $('input').attr('disabled', 'disabled');
+                $('select').attr('disabled', 'disabled')
+                $('textarea').attr('disabled', 'disabled')
+        });</script>
+    <body onload="initialize()">
+        <div class="page">
+            <div class="content">
+                {$titulo}
+                {$menu}
+                <div class="content_right">
+                    <center>
+                        <div class="titulo_content">
+                            {$smarty.session.projeto.projeto}
+                        </div>
+                    </center>
+                    <h4>» Cadastro de clientes</h4>
+                    <div class="content_consumidor">
+                        <fieldset>
+                            <legend><h3>Dados Coletados</h3></legend>
+                            <table width='100%'>
+                                <tr>
+                                    <td align='right' width='180'>UC</td>
+                                    <td>
+                                        <input type='text' name='uc' id='uc' value="{$arrConsumidor['uc']|default:''}" />
+                                    </td>
+                                    <td align='right' width='180'>Data da Visita</td>
+                                    <td>
+                                        <input class='date' type='text' name='data_visita' id='data_visita' value="{$arrConsumidor['data_visita']|default:''}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Medidor</td>
+                                    <td>
+                                        <input type='text' name='medidor' id='medidor' value="{$arrConsumidor['medidor']|default:''}" />
+                                    </td>
+                                    <td align='right'>CPF do Titular</td>
+                                    <td>
+                                        <input class='cpf' type='text' name='cpf' id='cpf' value="{$arrConsumidor['cpf']|default:''}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>RG do Titular</td>
+                                    <td>
+                                        <input type='text' name='rg' id='rg' value="{$arrConsumidor['rg']|default:''}"  />
+                                    </td>
+                                    <td align='right'>Data de nasc. titular</td>
+                                    <td>
+                                        <input class='date' type='text' name='data_nascimento' value="{$arrConsumidor['data_nascimento']|default:''}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Nome do titular</td>
+                                    <td colspan='3'>
+                                        <input type='text' name='nome' id='nome' size='76'  value="{$arrConsumidor['nome']|default:''}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>NIS OU NB</td>
+                                    <td>
+                                        <input type='text' name='numero_nis' id='numero_nis' value="{$arrConsumidor['numero_nis']|default:''}" />
+                                    </td>
+                                    <td align='right'>Tipo de Benefício</td>
+                                    <td>
+                                        <select name="tipo_beneficio" id="tipo_beneficio">
+                                            {html_options options=$lista_tipo_beneficio selected=$select_tipo_beneficio}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Titular é o dono do benefício?</td>
+                                    <td colspan='3'>
+                                        <select name="beneficiario_fatura" id="beneficiario_fatura">
+                                            {html_options options=$lista_beneficiario_fatura selected=$select_beneficiario_fatura}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Nome do responsável familiar</td>
+                                    <td colspan='3'>
+                                        <input type='text' name='nome_responsavel' id='nome_responsavel' value="{$arrConsumidor['nome_responsavel']|default:''}" size='76' />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>RG do responsável familiar</td>
+                                    <td>
+                                        <input type='text' name='rg_responsavel' id='rg_responsavel' value="{$arrConsumidor['rg_responsavel']|default:''}" />
+                                    </td>
+                                    <td align='right'>CPF do responsável familiar</td>
+                                    <td>
+                                        <input class='cpf' type='text' name='cpf_responsavel' id='cpf_responsavel' value="{$arrConsumidor['cpf_responsavel']|default:''}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Data de nasc. do responsável familiar</td>
+                                    <td>
+                                        <input class='date' type='text' name='nasc_responsavel' id='nasc_responsavel' value="{$arrConsumidor['nasc_responsavel']|default:''}" />
+                                    </td>
+                                    <td align='right'>Parentesco</td>
+                                    <td>
+                                        <select name="parentesco" id="parentesco">
+                                            {html_options options=$lista_parentesco selected=$select_parentesco}
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <br />
+                        <fieldset>
+                            <legend><h3>Endereço</h3></legend>
+                            <table width='100%'>
+                                <tr>
+                                    <td align='right' width='50'>Rua</td>
+                                    <td width='40'>
+                                        <input type='text' name='rua' id='rua' value="{$arrConsumidor['rua']|default:''}" size='93' />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Número</td>
+                                    <td>
+                                        <input type='text' name='numero' id='numero' value="{$arrConsumidor['numero']|default:''}" size='20' />
+                                        Bairro&nbsp;
+                                        <input type='text' name='bairro' id='bairro' value="{$arrConsumidor['bairro']|default:''}" size='59' />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Município</td>
+                                    <td>
+                                        <input type='text' name='municipio' id='municipio' value="{$arrConsumidor['municipio']|default:''}" />
+                                        Complemento&nbsp;
+                                        <input size='50' type='text' name='complemento' id='complemento' value="{$arrConsumidor['complemento']|default:''}" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <br />
+                        <fieldset>
+                            <legend><h3>Dados de Contato</h3></legend>
+                            <table width='100%'>
+                                <tr>
+                                    <td align='right' width='200'>Telefone</td>
+                                    <td>
+                                        <input type='text' name='telefone' id='telefone' value="{$arrConsumidor['telefone']|default:''}" />
+                                    </td>
+                                    <td align='right'>Celular</td>
+                                    <td>
+                                        <input type='text' name='celular' id='celular' value="{$arrConsumidor['celular']|default:''}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Email</td>
+                                    <td colspan='3'>
+                                        <input type='text' name='email' id='email' value="{$arrConsumidor['email']|default:''}" size='64' />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Melhor dia da semana para instalação/ entrega do material</td>
+                                    <td>
+                                        <select name="melhor_dia" id="melhor_dia">
+                                            {html_options options=$lista_melhor_dia selected=$select_melhor_dia}
+                                        </select>
+                                    </td>
+                                    <td align='right'>Período</td>
+                                    <td>
+                                        <select name="periodo" id="periodo">
+                                            {html_options options=$lista_periodo selected=$select_periodo}
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <br />
+                        <fieldset>
+                            <legend><h3>Informações Técnicas</h3></legend>
+                            <table width='100%'>
+                                <tr>
+                                    <td align='right' width='150'>Tensão da Residência</td>
+                                    <td>
+                                        <select name="tensao" id="tensao">
+                                            {html_options options=$lista_tensao selected=$select_tensao}
+                                        </select>
+                                    </td>
+                                    <td align='right'>Tipo de telhado</td>
+                                    <td>
+                                        <select name="tipo_telhado" id="tipo_telhado">
+                                            {html_options options=$lista_tipo_telhado selected=$select_tipo_telhado}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Material do telhado</td>
+                                    <td>
+                                        <select name="mat_telhado" id="mat_telhado">
+                                            {html_options options=$lista_mat_telhado selected=$select_mat_telhado}
+                                        </select>
+                                    </td>
+                                    <td align='right'>Caixa d´agua</td>
+                                    <td>
+                                        <select name="caixa_dagua" id="caixa_dagua">
+                                            {html_options options=$lista_caixa_dagua selected=$select_caixa_dagua}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Condição do Telhado</td>
+                                    <td>
+                                        <select name="cond_telhado" id="cond_telhado">
+                                            {html_options options=$lista_cond_telhado selected=$select_cond_telhado}
+                                        </select>
+                                    </td>
+                                    <td align='right'>Posição do norte</td>
+                                    <td>
+                                        <select name="pos_telhado" id="pos_telhado">
+                                            {html_options options=$lista_pos_telhado selected=$select_pos_telhado}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right' valign="top">Observação técnica</td>
+                                    <td colspan='3'>
+                                        <textarea rows='3' cols='56' name='obs_tecnica'>{$arrConsumidor['obs_tecnica']|default:''}</textarea>
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <br />
+                        <fieldset>
+                            <legend><h3>Informações Referenciais</h3></legend>
+                            <table width='100%'>
+                                <tr>
+                                    <td align='right' width='200'>Status Solar</td>
+                                    <td>
+                                        <select name="status_cliente" id="status_cliente">
+                                            {html_options options=$lista_status_cliente selected=$select_status_cliente}
+                                        </select>
+                                    </td>
+                                    <td align='right'></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td align='right' valign="top">Justificativa da reprovação</td>
+                                    <td colspan='3'>
+                                        <textarea rows='3' cols='56' name='just_reprovacao'>{$arrConsumidor['just_reprovacao']|default:''}</textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Status com a CPFL</td>
+                                    <td colspan="3">
+                                        <select name="status_cpfl" id="status_cpfl">
+                                            {html_options options=$lista_status_cpfl selected=$select_status_cpfl}
+                                        </select>
+                                    </td>
+                                    <!--<td align='right'>Cidade base</td>
+                                    <td>
+                                        <select name="cid_base_id" id="cid_base_id">
+                                            {html_options options=$lista_cid_base_id selected=$select_cid_base_id}
+                                        </select>
+                                    </td>-->
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <br />
+                        <fieldset>
+                            <legend><h3>Material</h3></legend>
+                            <table width='100%'>
+                                <tr>
+                                    <td align='right' width='180'>Material Entregue</td>
+                                    <td>
+                                        <select name="material_entregue" id="material_entregue">
+                                            {html_options options=$lista_material_entregue selected=$select_material_entregue}
+                                        </select>
+                                    </td>
+                                    <td align='right' width='180'>Data da Entrega</td>
+                                    <td>
+                                        <input class='date' type='text' name='data_entrega' id='data_entrega' value="{$arrConsumidor['data_entrega']|default:''}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Justificativa da não entregua</td>
+                                    <td colspan="3">
+                                        <select name="just_n_entrega" id="just_n_entrega">
+                                            {html_options options=$lista_just_n_entrega selected=$select_just_n_entrega}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Obs. da não entrega</td>
+                                    <td colspan="3">
+                                        <textarea rows='3' cols='56' name='obs_n_entrega'>{$arrConsumidor['obs_n_entrega']|default:''}</textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Núm. Série Coletor</td>
+                                    <td colspan="3">
+                                        <input type='text' name='num_serie_coletor' id='num_serie_coletor' value="{$arrConsumidor['num_serie_coletor']|default:''}"  />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Núm. Série Reservatório</td>
+                                    <td colspan="3">
+                                        <input type='text' name='num_serie_reservatorio' id='num_serie_reservatorio' value="{$arrConsumidor['num_serie_reservatorio']|default:''}"  />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Núm. Série Dispositivo</td>
+                                    <td colspan="3">
+                                        <input type='text' name='num_serie_dispositivo' id='num_serie_dispositivo' value="{$arrConsumidor['num_serie_dispositivo']|default:''}"  />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Núm. Série Kit Solar</td>
+                                    <td colspan="3">
+                                        <input type='text' name='num_serie_kitsolar' id='num_serie_kitsolar' value="{$arrConsumidor['num_serie_kitsolar']|default:''}"  />
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <br />
+                        <br />
+                        <fieldset>
+                            <legend><h3>Instalação</h3></legend>
+                            <table width='100%'>
+                                <tr>
+                                    <td align='right' width='180'>Instalação realizada?</td>
+                                    <td>
+                                        <select name="instalacao_realizada" id="instalacao_realizada">
+                                            {html_options options=$lista_instalacao_realizada selected=$select_instalacao_realizada}
+                                        </select>
+                                    </td>
+                                    <td align='right' width='180'>Data da Instalação</td>
+                                    <td>
+                                        <input class='date' type='text' name='data_instalacao' id='data_instalacao' value="{$arrConsumidor['data_instalacao']|default:''}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Justificativa da não instalação</td>
+                                    <td colspan="3">
+                                        <select name="just_n_instalacao" id="just_n_instalacao">
+                                            {html_options options=$lista_just_n_instalacao selected=$select_just_n_instalacao}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Obs. da não instalação</td>
+                                    <td colspan="3">
+                                        <textarea rows='3' cols='56' name='obs_n_instalacao'>{$arrConsumidor['obs_n_instalacao']|default:''}</textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Plano de ação</td>
+                                    <td colspan="3">
+                                        <select name="plano_acao" id="plano_acao">
+                                            {html_options options=$lista_plano_acao selected=$select_plano_acao}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Responsável</td>
+                                    <td colspan="3">
+                                        <select name="resp_instalacao" id="resp_instalacao">
+                                            {html_options options=$lista_resp_instalacao selected=$select_resp_instalacao}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Poste instalado</td>
+                                    <td colspan="3">
+                                        <select name="poste_instalado" id="poste_instalado">
+                                            {html_options options=$lista_poste_instalado selected=$select_poste_instalado}
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <br />
+                        <fieldset>
+                            <legend><h3>Medidas Elétricas</h3></legend>
+                            <table width='100%'>
+                                <tr>
+                                    <td align='right' width='240'>* Medições elétricas?</td>
+                                    <td>
+                                        <select name="lista_medicao_eletrica" id="instalacao_realizada">
+                                            {html_options options=$lista_medicao_eletrica selected=$select_medicao_eletrica}
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>* Período de medição</td>
+                                    <td>
+                                        <input class='date' type='text' name='periodo_medicao_inicio' id='periodo_medicao_inicio' value="{$arrConsumidor['periodo_medicao_inicio']|default:''}" />
+                                        à
+                                        <input class='date' type='text' name='periodo_medicao_fim' id='periodo_medicao_fim' value="{$arrConsumidor['periodo_medicao_fim']|default:''}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>* Consumo antes do projeto (MWh)</td>
+                                    <td>
+                                        <input type='text' name='consumo_antes' id='consumo_antes' value="{$arrConsumidor['consumo_antes']|default:''}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>* Demanda antes do projeto (MWh)</td>
+                                    <td>
+                                        <input type='text' name='demanda_antes' id='demanda_antes' value="{$arrConsumidor['demanda_antes']|default:''}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>* Consumo depois do projeto (MWh)</td>
+                                    <td>
+                                        <input type='text' name='consumo_depois' id='consumo_depois' value="{$arrConsumidor['consumo_depois']|default:''}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>* Demanda depois do projeto (MWh)</td>
+                                    <td>
+                                        <input type='text' name='demanda_depois' id='demanda_depois' value="{$arrConsumidor['demanda_depois']|default:''}" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='right'>Observação referencial</td>
+                                    <td colspan="3">
+                                        <textarea rows='3' cols='48' name='obs_referencial'>{$arrConsumidor['obs_referencial']|default:''}</textarea>
+                                    </td>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <br />
+                        <fieldset>
+                            <legend><h3>Uploads</h3></legend>
+                            <table width='100%'>
+                                {if isset($arrConsumidor['foto_telhado']) and $arrConsumidor['foto_telhado'] <> ''}
+                                <tr>
+                                    <td align='right' width='240'>Foto do telhado</td>
+                                    <td>
+                                        <a target="blank" href="/files/documentos/{$arrConsumidor['foto_telhado']}">Visualizar</a>
+                                    </td>
+                                </tr>
+                                {/if}
+                                {if isset($arrConsumidor['foto_chuveiro']) and $arrConsumidor['foto_chuveiro'] <> ''}
+                                <tr>
+                                    <td align='right' width='240'>Foto do chuveiro</td>
+                                    <td>
+                                        <a target="blank" href="/files/documentos/{$arrConsumidor['foto_chuveiro']}">Visualizar</a>
+                                    </td>
+                                </tr>
+                                {/if}
+                                {if isset($arrConsumidor['foto_extra']) and $arrConsumidor['foto_extra'] <> ''}
+                                <tr>
+                                    <td align='right' width='240'>Foto extra</td>
+                                    <td>
+                                        <a target="blank" href="/files/documentos/{$arrConsumidor['foto_extra']}">Visualizar</a>
+                                    </td>
+                                </tr>
+                                {/if}
+                                {if isset($arrConsumidor['documentos']) and $arrConsumidor['documentos'] <> ''}
+                                <tr>
+                                    <td align='right' width='240'>Documentos</td>
+                                    <td>
+                                        <a target="blank" href="/files/documentos/{$arrConsumidor['documentos']}">Visualizar</a>
+                                    </td>
+                                </tr>
+                                {/if}
+                                {if isset($arrConsumidor['termo_visita']) and $arrConsumidor['termo_visita'] <> ''}
+                                <tr>
+                                    <td align='right' width='240'>Termo de visita</td>
+                                    <td>
+                                        <a target="blank" href="/files/documentos/{$arrConsumidor['termo_visita']}">Visualizar</a>
+                                    </td>
+                                </tr>
+                                {/if}
+                                {if isset($arrConsumidor['termo_material_entregue']) and $arrConsumidor['termo_material_entregue'] <> ''}
+                                <tr>
+                                    <td align='right' width='240'>Termo de material entregue</td>
+                                    <td>
+                                        <a target="blank" href="/files/documentos/{$arrConsumidor['termo_material_entregue']}">Visualizar</a>
+                                    </td>
+                                </tr>
+                                {/if}
+                                {if isset($arrConsumidor['termo_instalacao']) and $arrConsumidor['termo_instalacao'] <> ''}
+                                <tr>
+                                    <td align='right' width='240'>Termo de instalacao</td>
+                                    <td>
+                                        <a target="blank" href="/files/documentos/{$arrConsumidor['termo_instalacao']}">Visualizar</a>
+                                    </td>
+                                </tr>
+                                {/if}
+                                {if isset($arrConsumidor['imagem_pos_i']) and $arrConsumidor['imagem_pos_i'] <> ''}
+                                <tr>
+                                    <td align='right' width='240'>Imagem pós I</td>
+                                    <td>
+                                        <a target="blank" href="/files/documentos/{$arrConsumidor['imagem_pos_i']}">Visualizar</a>
+                                    </td>
+                                </tr>
+                                {/if}
+                                {if isset($arrConsumidor['imagem_pos_ii']) and $arrConsumidor['imagem_pos_ii'] <> ''}
+                                <tr>
+                                    <td align='right' width='240'>Imagem pós II</td>
+                                    <td>
+                                        <a target="blank" href="/files/documentos/{$arrConsumidor['imagem_pos_ii']}">Visualizar</a>
+                                    </td>
+                                </tr>
+                                {/if}
+                            </table>
+                        </fieldset>
+                    </div>
+                    <!--
+                    <div><h4>Geolocalização</h4></div>
+                    <div><p>Arraste o ponto para posicionar corretamente o endereço do consumidor</p></div>
+                    <div id="map_consumidor" style="width: 100%; height: 250px;"></div>
+                    -->
+                </div>
+            </div>
+        </div>
+        {$rodape}
+    </body>
+</html>

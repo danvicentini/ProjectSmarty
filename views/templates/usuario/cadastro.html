@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  {$head}
+  <body>
+    <div class="page">
+      <div class="content">
+        {$titulo}
+        <div class="menu_left">
+          <ul>
+            {foreach from=$menu_ini item=menu}
+             {if $menu['tipo'] != 1 }<li><img src="/files/images/seta.png" /><a href="{$menu['men_url']}"> {$menu['men_nome']}</a></li>{/if}
+            {/foreach}
+          </ul>
+        </div>
+        <div class="content_right">
+          <center>
+            <div class="titulo_content">
+              Projeto de Eficiência Energética - PEE ANEEL <br/>
+              Implantação de módulos semafóricos com tecnologia LED
+            </div>
+          </center>
+          <h4>» Cadastro de novo usuário</h4>
+          <div class="content_usuario">
+            <form name="form_usuario" id="form_usuario" class="form_usuario">
+              <input type="hidden" name="usu_id" value="{if isset($arrUsuario[0])}{$arrUsuario[0]['usu_id']}{/if}" />
+              <div>
+                <label>*Perfil:</label>
+                <select name="perfil" id="perfil" style="width: 250px">
+                  <option value="">Selecione...</option>
+                  {html_options options=$lista_perfis selected=$perfil_selected}
+                </select>
+              </div>
+              <div>
+                <label>*Nome:</label>
+                <input name="nome" id="nome" value="{if isset($arrUsuario[0])}{$arrUsuario[0]['usu_nome']}{/if}" style="width: 350px" />
+              </div>
+              <div>
+                <label>*E-mail:</label>
+                <input name="email" id="email" value="{if isset($arrUsuario[0])}{$arrUsuario[0]['usu_email']}{/if}" style="width: 350px" />
+              </div>
+              <div>
+                <label>*Nick/Usuário:</label>
+                <input name="nick" id="nick" value="{if isset($arrUsuario[0])}{$arrUsuario[0]['usu_nick']}{/if}" style="width: 150px" />
+              </div>
+              <div>
+                <label>*Senha:</label>
+                <input name="senha" type="password" id="senha" value="" style="width: 150px" />
+              </div>
+              <div>
+                <label>*Confirma senha:</label>
+                <input name="senha2" type="password" id="senha2" value="" style="width: 150px" />
+              </div>
+
+              <hr/>
+
+              <div class="cadastro_projetos">
+                <h5>Permissão de acesso nos projetos</h5>
+                {html_checkboxes name="projetos" options=$arrProjetos checked=$projetos_checked labels=false separator="<br />"}
+              </div>
+
+              <div>
+                <center><input type="button" value="Gravar" onclick="gravar()" /></center>
+              </div>
+              <br/>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {$rodape}
+
+  </body>
+</html>
